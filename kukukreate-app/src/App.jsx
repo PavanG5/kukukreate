@@ -54,42 +54,43 @@ export default function App() {
   return (
     <div style={{
       maxWidth: '800px',
-      margin: '0 auto',
+      margin: '2rem auto',
       padding: '2rem',
-      backgroundColor: '#1C1C1C',
+      background: 'linear-gradient(to bottom right, #1C1C1C, #2E2E2E)',
       color: '#F5F5F5',
-      borderRadius: '1rem'
+      borderRadius: '1.5rem',
+      boxShadow: '0 0 20px rgba(255, 107, 0, 0.4)'
     }}>
-      <h1 style={{ color: '#FF6B00', textAlign: 'center', fontSize: '2rem' }}>KukuKreate</h1>
-      <p style={{ color: '#FFD6B3', textAlign: 'center' }}>Create your own audio story with AI</p>
+      <h1 style={{ color: '#FF6B00', textAlign: 'center', fontSize: '2.5rem', fontWeight: 'bold', marginBottom: '1rem' }}>🎙️ KukuKreate</h1>
+      <p style={{ color: '#FFD6B3', textAlign: 'center', marginBottom: '2rem', fontSize: '1.1rem' }}>Create your own audio story with AI</p>
 
       {step === 1 && (
-        <div style={{ marginTop: '2rem' }}>
-          <label>Main Story Prompt:</label>
+        <div style={{ background: '#2A2A2A', borderRadius: '1rem', padding: '1.5rem', boxShadow: '0 4px 10px rgba(0,0,0,0.3)' }}>
+          <label style={{ display: 'block', marginBottom: '0.5rem', color: '#FFB366' }}>Main Story Prompt:</label>
           <textarea
             placeholder="e.g., I want a sci-fi story about time travel"
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
-            style={{ width: '100%', height: '80px', marginBottom: '1rem', backgroundColor: '#333', color: 'white', border: '1px solid #FF6B00' }}
+            style={{ width: '100%', height: '80px', marginBottom: '1rem', backgroundColor: '#333', color: 'white', border: '1px solid #FF6B00', borderRadius: '8px', padding: '0.5rem' }}
           />
-          <label>Main Character Name:</label>
+          <label style={{ display: 'block', marginBottom: '0.5rem', color: '#FFB366' }}>Main Character Name:</label>
           <input
             type="text"
             placeholder="e.g., Zara"
             value={characterName}
             onChange={(e) => setCharacterName(e.target.value)}
-            style={{ width: '100%', marginBottom: '1rem', backgroundColor: '#333', color: 'white', border: '1px solid #FF6B00' }}
+            style={{ width: '100%', marginBottom: '1rem', backgroundColor: '#333', color: 'white', border: '1px solid #FF6B00', borderRadius: '8px', padding: '0.5rem' }}
           />
-          <label>Select Genre:</label>
-          <select value={genre} onChange={(e) => setGenre(e.target.value)} style={{ width: '100%', marginBottom: '1rem', backgroundColor: '#333', color: 'white', border: '1px solid #FF6B00' }}>
+          <label style={{ display: 'block', marginBottom: '0.5rem', color: '#FFB366' }}>Select Genre:</label>
+          <select value={genre} onChange={(e) => setGenre(e.target.value)} style={{ width: '100%', marginBottom: '1rem', backgroundColor: '#333', color: 'white', border: '1px solid #FF6B00', borderRadius: '8px', padding: '0.5rem' }}>
             <option value="sci-fi">Sci-Fi</option>
             <option value="romance">Romance</option>
             <option value="mystery">Mystery</option>
             <option value="fantasy">Fantasy</option>
             <option value="comedy">Comedy</option>
           </select>
-          <label>Select Voice Model:</label>
-          <select value={voiceModel} onChange={(e) => setVoiceModel(e.target.value)} style={{ width: '100%', marginBottom: '1rem', backgroundColor: '#333', color: 'white', border: '1px solid #FF6B00' }}>
+          <label style={{ display: 'block', marginBottom: '0.5rem', color: '#FFB366' }}>Select Voice Model:</label>
+          <select value={voiceModel} onChange={(e) => setVoiceModel(e.target.value)} style={{ width: '100%', marginBottom: '1.5rem', backgroundColor: '#333', color: 'white', border: '1px solid #FF6B00', borderRadius: '8px', padding: '0.5rem' }}>
             <option value="default">Default</option>
             <option value="calm">Calm</option>
             <option value="energetic">Energetic</option>
@@ -98,16 +99,16 @@ export default function App() {
           <button
             onClick={generatePaths}
             disabled={!prompt.trim()}
-            style={{ backgroundColor: '#FF6B00', color: 'white', padding: '0.75rem', width: '100%', border: 'none', borderRadius: '0.5rem' }}
+            style={{ backgroundColor: '#FF6B00', color: 'white', padding: '0.75rem', width: '100%', border: 'none', borderRadius: '10px', fontSize: '1rem', cursor: 'pointer' }}
           >
-            Generate Story Paths
+            🚀 Generate Story Paths
           </button>
         </div>
       )}
 
       {step === 2 && (
         <div style={{ marginTop: '2rem' }}>
-          <p style={{ color: '#FFD6B3' }}>Choose how your story begins:</p>
+          <p style={{ color: '#FFD6B3', fontSize: '1.2rem', marginBottom: '1rem' }}>Choose how your story begins:</p>
           {paths.map((path, index) => (
             <button
               key={index}
@@ -120,7 +121,9 @@ export default function App() {
                 backgroundColor: selectedPath === path ? '#FF6B00' : 'white',
                 color: selectedPath === path ? 'white' : '#FF6B00',
                 border: '1px solid #FF6B00',
-                borderRadius: '0.5rem'
+                borderRadius: '0.75rem',
+                fontWeight: 'bold',
+                fontSize: '1rem'
               }}
             >
               {path}
@@ -130,19 +133,21 @@ export default function App() {
       )}
 
       {step === 3 && (
-        <div style={{ marginTop: '2rem' }}>
-          <h3 style={{ color: '#FF6B00' }}>Your Custom Story</h3>
-          <p style={{ marginBottom: '1rem' }}>{generatedStory}</p>
-          {partTwo && <p style={{ fontStyle: 'italic', color: '#FFD6B3' }}>{partTwo}</p>}
-          <button onClick={handlePlayAudio} disabled={isPlaying} style={{ marginRight: '0.5rem', backgroundColor: '#FFD6B3', color: '#1C1C1C', padding: '0.5rem 1rem', border: 'none', borderRadius: '0.3rem' }}>
-            🔊 {isPlaying ? 'Playing...' : 'Listen to Audio Preview'}
-          </button>
-          <button onClick={handleContinue} style={{ marginRight: '0.5rem', backgroundColor: '#FF6B00', color: 'white', padding: '0.5rem 1rem', border: 'none', borderRadius: '0.3rem' }}>
-            Continue the Story
-          </button>
-          <button onClick={handleRestart} style={{ background: 'transparent', border: 'none', color: '#FFD6B3', textDecoration: 'underline' }}>
-            Start Over
-          </button>
+        <div style={{ marginTop: '2rem', backgroundColor: '#2A2A2A', padding: '1.5rem', borderRadius: '1rem' }}>
+          <h3 style={{ color: '#FF6B00', fontSize: '1.4rem', marginBottom: '1rem' }}>📖 Your Custom Story</h3>
+          <p style={{ marginBottom: '1rem', lineHeight: '1.6' }}>{generatedStory}</p>
+          {partTwo && <p style={{ fontStyle: 'italic', color: '#FFD6B3', lineHeight: '1.6' }}>{partTwo}</p>}
+          <div style={{ marginTop: '1.5rem' }}>
+            <button onClick={handlePlayAudio} disabled={isPlaying} style={{ marginRight: '0.5rem', backgroundColor: '#FFD6B3', color: '#1C1C1C', padding: '0.5rem 1rem', border: 'none', borderRadius: '0.5rem' }}>
+              🔊 {isPlaying ? 'Playing...' : 'Listen to Audio Preview'}
+            </button>
+            <button onClick={handleContinue} style={{ marginRight: '0.5rem', backgroundColor: '#FF6B00', color: 'white', padding: '0.5rem 1rem', border: 'none', borderRadius: '0.5rem' }}>
+              ➕ Continue the Story
+            </button>
+            <button onClick={handleRestart} style={{ background: 'transparent', border: 'none', color: '#FFD6B3', textDecoration: 'underline', fontSize: '0.95rem' }}>
+              🔄 Start Over
+            </button>
+          </div>
         </div>
       )}
     </div>
